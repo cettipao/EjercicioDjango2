@@ -19,10 +19,13 @@ class ProductoAdmin(admin.ModelAdmin):
         }),
     )
 
+class ProductoInLine(admin.TabularInline):
+    model = Producto
 class ProveedorAdmin(admin.ModelAdmin):
     list_display = ('rut','nombre','web')
     list_display_links = ('rut','nombre',)
     list_filter = ('nombre',)
+    inlines = [ProductoInLine,]
 
 class VentaAdmin(admin.ModelAdmin):
     list_display = ('fecha','cliente','isDescuento')
