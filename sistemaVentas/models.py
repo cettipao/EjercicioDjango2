@@ -6,7 +6,7 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length = 20)
     descripcion = models.CharField(max_length = 40)
 
-class Telefono(models.model):
+class Telefono(models.Model):
     numero = models.CharField(max_length = 20)
     cliente = models.ForeignKey(
         'Cliente',
@@ -24,7 +24,7 @@ class Comuna(models.Model):
         null=False
     )
 
-class Direccion(models.Model):
+class Direccion(models.Model): #Foreign key alrevez (Cliente tiene Dir o Dir tiene Cliente)
     numero = models.CharField(max_length = 5)
     calle = models.CharField(max_length = 20) 
     comuna = models.ForeignKey(
@@ -38,6 +38,54 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length = 20)
     direccion = models.ForeignKey(
         'Direccion',
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+class Proveedor(models.Model):
+    rut = models.CharField(max_length = 20)
+    nombre = models.CharField(max_length = 20)
+    web = models.CharField(max_length = 30)
+    direccion = models.ForeignKey(
+        'Direccion',
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length = 20)
+    precio = models.IntegerField()
+    stock = models.IntegerField()
+    categoria = models.ForeignKey(
+        'Categoria',
+        on_delete=models.CASCADE,
+        null=False
+    )
+    proveedor = models.ForeignKey(
+        'Proveedor',
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+class Detalle(models.Model):
+    producto = models.ForeignKey(
+        'Producto',
+        on_delete=models.CASCADE,
+        null=False
+    )
+    cantidad = models.SmallIntegerField()
+    venta = models.ForeignKey(
+        'Venta',
+        on_delete=models.CASCADE,
+        null=False
+    )
+
+class Venta(models.Model):
+    fecha = models.DateField()
+    descuento = models.SmallIntegerField()
+    montoFinal = models.IntegerField()
+    cliente = models.ForeignKey(
+        'Cliente',
         on_delete=models.CASCADE,
         null=False
     )
