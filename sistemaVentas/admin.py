@@ -27,6 +27,10 @@ class ProveedorAdmin(admin.ModelAdmin):
 class VentaAdmin(admin.ModelAdmin):
     list_display = ('fecha','cliente','isDescuento')
     list_display_links = ('fecha','cliente',)
+    actions = ['make_descuento']
+    
+    def make_descuento(self,request,queryset):
+        return queryset.update(descuento = True)
 
 # Register your models here.
 admin.site.register(Categoria)
