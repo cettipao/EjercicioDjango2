@@ -6,6 +6,9 @@ class Categoria(models.Model):
     nombre = models.CharField(max_length = 20)
     descripcion = models.CharField(max_length = 40)
 
+    def __str__(self):
+        return str(self.nombre)
+
 class Telefono(models.Model):
     numero = models.CharField(max_length = 20)
     cliente = models.ForeignKey(
@@ -13,6 +16,8 @@ class Telefono(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str(self.numero)
 
 class Ciudad(models.Model):
     nombre = models.CharField(max_length = 20)
@@ -23,6 +28,8 @@ class Comuna(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str(self.nombre)
 
 class Direccion(models.Model): #Foreign key alrevez (Cliente tiene Dir o Dir tiene Cliente)
     numero = models.CharField(max_length = 5)
@@ -32,6 +39,8 @@ class Direccion(models.Model): #Foreign key alrevez (Cliente tiene Dir o Dir tie
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str("{}, {}".format(self.calle,self.numero))
 
 class Cliente(models.Model):
     rut = models.CharField(max_length = 20)
@@ -41,6 +50,8 @@ class Cliente(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str(self.nombre)
 
 class Proveedor(models.Model):
     rut = models.CharField(max_length = 20)
@@ -51,6 +62,8 @@ class Proveedor(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str(self.nombre)
 
 class Producto(models.Model):
     nombre = models.CharField(max_length = 20)
@@ -66,6 +79,8 @@ class Producto(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str(self.nombre)
 
 class Detalle(models.Model):
     producto = models.ForeignKey(
@@ -79,14 +94,18 @@ class Detalle(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str("({}) {} a {}".format(self.cantidad,self.producto.nombre,self.venta.cliente.nombre))
 
 class Venta(models.Model):
     fecha = models.DateField()
-    descuento = models.SmallIntegerField()
+    descuento = models.BooleanField()
     montoFinal = models.IntegerField()
     cliente = models.ForeignKey(
         'Cliente',
         on_delete=models.CASCADE,
         null=False
     )
+    def __str__(self):
+        return str("{}: {} (${})".format(self.fecha, self.cliente.nombre,self.montoFinal))
 
