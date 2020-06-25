@@ -21,6 +21,8 @@ class Telefono(models.Model):#Puede haber varios Telefonos
 
 class Ciudad(models.Model):
     nombre = models.CharField(max_length = 20)
+    def __str__(self):
+        return str(self.nombre)
 class Comuna(models.Model):
     nombre = models.CharField(max_length = 20)
     ciudad = models.ForeignKey(
