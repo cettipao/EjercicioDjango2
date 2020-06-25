@@ -7,6 +7,7 @@ class TelefonoInLine(admin.TabularInline):#Para ver los telefonos del Cliente/Pr
 class ClienteAdmin(admin.ModelAdmin):
     #exclude = ('direccion',)
     inlines = [TelefonoInLine,]
+    search_fields = ['nombre','rut',]
 
 class ProductoAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
