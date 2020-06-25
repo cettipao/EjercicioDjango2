@@ -106,6 +106,11 @@ class Venta(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+    def isDescuento(self):
+        return self.descuento
+    isDescuento.boolean = descuento
+    isDescuento.short_description = 'Tiene Descuento'
+
     def __str__(self):
         return str("{}: {} (${})".format(self.fecha, self.cliente.nombre,self.montoFinal))
 
