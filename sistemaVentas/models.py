@@ -9,7 +9,7 @@ class Categoria(models.Model):
     def __str__(self):
         return str(self.nombre)
 
-class Telefono(models.Model):
+class Telefono(models.Model):#Puede haber varios Telefonos
     numero = models.CharField(max_length = 20)
     cliente = models.ForeignKey(
         'Cliente',
@@ -80,7 +80,7 @@ class Producto(models.Model):
         null=False
     )
     def __str__(self):
-        return str(self.nombre)
+        return str("{} (${})".format(self.nombre,self.precio))
 
 class Detalle(models.Model):
     producto = models.ForeignKey(

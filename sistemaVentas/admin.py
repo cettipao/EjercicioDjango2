@@ -5,7 +5,7 @@ class TelefonoInLine(admin.TabularInline):#Para ver los telefonos del Cliente/Pr
     model = Telefono
 
 class ClienteAdmin(admin.ModelAdmin):
-    exclude = ('direccion',)
+    #exclude = ('direccion',)
     inlines = [TelefonoInLine,]
 
 class ProductoAdmin(admin.ModelAdmin):
@@ -19,6 +19,11 @@ class ProductoAdmin(admin.ModelAdmin):
         }),
     )
 
+class ProveedorAdmin(admin.ModelAdmin):
+    list_display = ('rut','nombre','web')
+    list_display_links = ('rut','nombre',)
+    list_filter = ('nombre',)
+
 # Register your models here.
 admin.site.register(Categoria)
 admin.site.register(Telefono)
@@ -26,7 +31,7 @@ admin.site.register(Ciudad)
 admin.site.register(Comuna)
 admin.site.register(Direccion)
 admin.site.register(Cliente,ClienteAdmin)
-admin.site.register(Proveedor)
+admin.site.register(Proveedor,ProveedorAdmin)
 admin.site.register(Producto,ProductoAdmin)
 admin.site.register(Detalle)
 admin.site.register(Venta)
